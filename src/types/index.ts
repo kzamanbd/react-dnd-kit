@@ -1,5 +1,5 @@
 export interface IGallery {
-    id: number;
+    id: string;
     alt: string;
     url: string;
 }
