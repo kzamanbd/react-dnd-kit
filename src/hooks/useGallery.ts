@@ -7,57 +7,57 @@ export const useGallery = () => {
         {
             id: 1,
             alt: "image 1",
-            url: "https://flowbite.s3.amazonaws.com/docs/gallery/square/image-1.jpg"
+            url: "/images/image-1.webp"
         },
         {
             id: 2,
             alt: "image 2",
-            url: "https://flowbite.s3.amazonaws.com/docs/gallery/square/image-2.jpg"
+            url: "/images/image-2.webp"
         },
         {
             id: 3,
             alt: "image 3",
-            url: "https://flowbite.s3.amazonaws.com/docs/gallery/square/image-3.jpg"
+            url: "/images/image-3.webp"
         },
         {
             id: 4,
             alt: "image 4",
-            url: "https://flowbite.s3.amazonaws.com/docs/gallery/square/image-4.jpg"
+            url: "/images/image-4.webp"
         },
         {
             id: 5,
             alt: "image 5",
-            url: "https://flowbite.s3.amazonaws.com/docs/gallery/square/image-5.jpg"
+            url: "/images/image-5.webp"
         },
         {
             id: 6,
             alt: "image 6",
-            url: "https://flowbite.s3.amazonaws.com/docs/gallery/square/image-6.jpg"
+            url: "/images/image-6.webp"
         },
         {
             id: 7,
             alt: "image 7",
-            url: "https://flowbite.s3.amazonaws.com/docs/gallery/square/image-7.jpg"
+            url: "/images/image-7.webp"
         },
         {
             id: 8,
             alt: "image 8",
-            url: "https://flowbite.s3.amazonaws.com/docs/gallery/square/image-8.jpg"
+            url: "/images/image-8.webp"
         },
         {
             id: 9,
             alt: "image 9",
-            url: "https://flowbite.s3.amazonaws.com/docs/gallery/square/image-9.jpg"
+            url: "/images/image-9.webp"
         },
         {
             id: 10,
             alt: "image 10",
-            url: "https://flowbite.s3.amazonaws.com/docs/gallery/square/image-10.jpg"
+            url: "/images/image-10.jpeg"
         },
         {
             id: 11,
             alt: "image 11",
-            url: "https://flowbite.s3.amazonaws.com/docs/gallery/square/image-11.jpg"
+            url: "/images/image-11.jpeg"
         }
     ];
 
