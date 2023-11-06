@@ -2,8 +2,8 @@
 @tailwind components;
 
 @layer components {
-    .gallery-img {
-        @apply h-48 w-48 object-cover max-w-full rounded-xl border-2;
+    .card-item {
+        @apply flex bg-white h-40 w-40 rounded-xl items-center justify-center;
     }
 }
 @tailwind utilities;
