@@ -60,20 +60,28 @@ const DraggableList: FC = () => {
 
     // upload new image
     const uploadImage = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files![0];
-        const reader = new FileReader();
+        if (!e.target.files) return;
 
-        reader.readAsDataURL(file);
+        // get all files
+        const files = Array.from(e.target.files);
 
-        reader.onloadend = () => {
-            const newImage = {
-                id: Math.random(),
-                url: reader.result as string,
-                alt: "New Image"
+        console.log(files);
+
+        files.forEach((file) => {
+            const reader = new FileReader();
+
+            reader.readAsDataURL(file);
+
+            reader.onloadend = () => {
+                const newImage = {
+                    id: Math.random(),
+                    url: reader.result as string,
+                    alt: "New Image"
+                };
+                console.log(newImage);
+                setItems((items) => [...items, newImage]);
             };
-
-            setItems((items) => [...items, newImage]);
-        };
+        });
     };
 
     // file selection handler
@@ -161,6 +169,7 @@ const DraggableList: FC = () => {
                                             </p>
                                         </div>
                                         <input
+                                            multiple
                                             accept="image/*"
                                             id="dropzone-file"
                                             type="file"
