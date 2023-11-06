@@ -11,7 +11,7 @@ import {
 } from "@dnd-kit/core";
 
 import { SortableContext, arrayMove, rectSortingStrategy } from "@dnd-kit/sortable";
-import { FC, useCallback, useState } from "react";
+import { FC, useCallback, useMemo, useState } from "react";
 import { useGallery } from "../hooks/useGallery";
 import { IGallery } from "../types";
 import Card from "./Card";
@@ -35,8 +35,7 @@ const DraggableList: FC = () => {
     // drag start handler when user starts dragging
     const handleDragStart = useCallback(
         (event: DragStartEvent) => {
-            setActiveCard(items.find((image) => image.id === Number(event.active.id)) || null);
-            console.log(event.active);
+            setActiveCard(items.find((image) => image.id === event.active.id) || null);
         },
         [items]
     );
@@ -46,8 +45,8 @@ const DraggableList: FC = () => {
         const { active, over } = event;
         if (active.id !== over?.id) {
             setItems((items) => {
-                const oldIndex = items.findIndex((item) => item.id === Number(active.id));
-                const newIndex = items.findIndex((item) => item.id === Number(over!.id));
+                const oldIndex = items.findIndex((item) => item.id === active.id);
+                const newIndex = items.findIndex((item) => item.id === over!.id);
 
                 return arrayMove(items, oldIndex, newIndex);
             });
@@ -68,8 +67,6 @@ const DraggableList: FC = () => {
         // get all files
         const files = Array.from(e.target.files);
 
-        console.log(files);
-
         files.forEach((file) => {
             const reader = new FileReader();
 
@@ -77,11 +74,10 @@ const DraggableList: FC = () => {
 
             reader.onloadend = () => {
                 const newImage = {
-                    id: Math.random(),
+                    id: Date.now() + "",
                     url: reader.result as string,
                     alt: "New Image"
                 };
-                console.log(newImage);
                 setItems((items) => [...items, newImage]);
             };
         });
@@ -112,6 +108,8 @@ const DraggableList: FC = () => {
     // title of the card
     const cardTitle = selectedItems > 0 ? `${selectedItems} File${selectedItems > 1 ? "s" : ""} Selected` : "Gallery";
 
+    const itemIds = useMemo(() => items.map((item) => item.id), [items]);
+
     return (
         <div className="card">
             <h2 className="card-header flex justify-between">
@@ -129,7 +127,7 @@ const DraggableList: FC = () => {
                     onDragStart={handleDragStart}
                     onDragEnd={handleDragEnd}
                     onDragCancel={handleDragCancel}>
-                    <SortableContext items={items} strategy={rectSortingStrategy}>
+                    <SortableContext items={itemIds} strategy={rectSortingStrategy}>
                         <div className="grid gap-3 lg:grid-cols-5 md:grid-cols-3 grid-cols-2">
                             {items.map((image, index) => (
                                 <SortableCard
@@ -184,7 +182,7 @@ const DraggableList: FC = () => {
                     </SortableContext>
                     <DragOverlay adjustScale style={{ transformOrigin: "0 0 " }}>
                         {activeCard ? (
-                            <Card src={activeCard.url} alt={activeCard.alt} id={String(activeCard.id)} isDragging />
+                            <Card src={activeCard.url} alt={activeCard.alt} id={activeCard.id} isDragging />
                         ) : null}
                     </DragOverlay>
                 </DndContext>

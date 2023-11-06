@@ -24,12 +24,10 @@ const Card = forwardRef<HTMLDivElement, CardProps>(({ withOpacity, isDragging, s
     if (props.index === 0) {
         inlineStyles.gridRowStart = "span 2";
         inlineStyles.gridColumnStart = "span 2";
-        inlineStyles.height = "auto";
-        inlineStyles.width = "auto";
     }
 
     return (
-        <div className="card-item group" ref={ref} style={inlineStyles} {...props}>
+        <div className={`card-item group ${props.checked && "checked"}`} ref={ref} style={inlineStyles} {...props}>
             {!isDragging ? (
                 <>
                     {!props.checked ? (
