@@ -7,13 +7,12 @@ export type CardProps = HTMLAttributes<HTMLDivElement> & {
     withOpacity?: boolean;
     isDragging?: boolean;
     index?: number;
+    checked?: boolean;
 };
 
-const Card = forwardRef<HTMLDivElement, CardProps>(({ src, alt, withOpacity, isDragging, style, ...props }, ref) => {
+const Card = forwardRef<HTMLDivElement, CardProps>(({ withOpacity, isDragging, style, ...props }, ref) => {
     const inlineStyles: CSSProperties = {
         opacity: withOpacity ? "0.5" : "1",
-        transformOrigin: "50% 50%",
-        borderRadius: "10px",
         cursor: isDragging ? "grabbing" : "grab",
         boxShadow: isDragging
             ? "rgb(63 63 68 / 5%) 0px 2px 0px 2px, rgb(34 33 81 / 15%) 0px 2px 3px 2px"
@@ -30,8 +29,17 @@ const Card = forwardRef<HTMLDivElement, CardProps>(({ src, alt, withOpacity, isD
     }
 
     return (
-        <div className="card-item" ref={ref} style={inlineStyles} {...props}>
-            <img className="h-full w-full object-cover max-w-full rounded-xl border-2" src={src} alt={alt} />
+        <div className="card-item group" ref={ref} style={inlineStyles} {...props}>
+            <div className="overlay group-hover:scale-100 scale-0 duration-300 transition-transform"></div>
+            <input
+                type="checkbox"
+                checked={props.checked}
+                onChange={() => null}
+                className={`g-checkbox ${
+                    !props.checked && "group-hover:scale-100 scale-0 duration-300 transition-transform"
+                }`}
+            />
+            <img className="h-full w-full object-cover max-w-full rounded-xl" src={props.src} alt={props.alt} />
         </div>
     );
 });

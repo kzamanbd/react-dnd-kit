@@ -11,9 +11,8 @@ const Grid: FC<GridProps> = ({ children, columns }) => {
             style={{
                 display: "grid",
                 gridTemplateColumns: `repeat(${columns}, 1fr)`,
-                gridGap: 22,
-                maxWidth: "800px",
-                margin: "100px auto"
+                gridGap: 24,
+                width: "100%"
             }}>
             {children}
         </div>

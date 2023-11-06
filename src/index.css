@@ -2,8 +2,23 @@
 @tailwind components;
 
 @layer components {
+    .card {
+        @apply rounded-md bg-white shadow-sm;
+    }
+    .card-header {
+        @apply border-b border-dashed border-gray-200 p-4 font-semibold dark:border-gray-700;
+    }
+    .card-body {
+        @apply p-4;
+    }
     .card-item {
-        @apply flex bg-white h-40 w-40 rounded-xl items-center justify-center;
+        @apply flex h-44 w-44 rounded-xl items-center justify-center border relative;
+    }
+    .overlay {
+        @apply absolute inset-0 bg-black bg-opacity-50 rounded-xl;
+    }
+    .g-checkbox {
+        @apply w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2 absolute left-5 top-5;
     }
 }
 @tailwind utilities;
