@@ -12,10 +12,10 @@
         @apply p-4;
     }
     .card-item {
-        @apply flex h-44 w-44 rounded-xl items-center justify-center border relative;
+        @apply aspect-square flex rounded-xl items-center justify-center border relative;
     }
     .overlay {
-        @apply absolute inset-0 bg-black bg-opacity-50 rounded-xl;
+        @apply absolute inset-0 bg-black bg-opacity-40 rounded-xl;
     }
     .g-checkbox {
         @apply w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2 absolute left-5 top-5;

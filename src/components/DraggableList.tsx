@@ -11,17 +11,16 @@ import {
 } from "@dnd-kit/core";
 
 import { SortableContext, arrayMove, rectSortingStrategy } from "@dnd-kit/sortable";
-import { FC, useState } from "react";
+import { FC, useCallback, useState } from "react";
 import { useGallery } from "../hooks/useGallery";
 import { IGallery } from "../types";
 import Card from "./Card";
-import Grid from "./Grid";
 import SortableCard from "./SortableCard";
 
 const DraggableList: FC = () => {
     const { images } = useGallery();
     const [items, setItems] = useState(images);
-    const [activeCard, setActiveCard] = useState<IGallery | null>(null);
+    const [activeCard, setActiveCard] = useState<IGallery | null>();
 
     // setup sensors
     const sensors = useSensors(
@@ -34,12 +33,16 @@ const DraggableList: FC = () => {
     );
 
     // drag start handler when user starts dragging
-    const handleDragStart = (event: DragStartEvent) => {
-        setActiveCard(items.find((image) => image.id === Number(event.active.id)) || null);
-    };
+    const handleDragStart = useCallback(
+        (event: DragStartEvent) => {
+            setActiveCard(items.find((image) => image.id === Number(event.active.id)) || null);
+            console.log(event.active);
+        },
+        [items]
+    );
 
     // drag end handler when user stops dragging
-    const handleDragEnd = (event: DragEndEvent) => {
+    const handleDragEnd = useCallback((event: DragEndEvent) => {
         const { active, over } = event;
         if (active.id !== over?.id) {
             setItems((items) => {
@@ -51,12 +54,12 @@ const DraggableList: FC = () => {
         }
 
         setActiveCard(null);
-    };
+    }, []);
 
     // drag cancel handler when user cancels dragging
-    const handleDragCancel = () => {
-        setActiveCard(null);
-    };
+    const handleDragCancel = useCallback(() => {
+        setActiveCard(undefined);
+    }, []);
 
     // upload new image
     const uploadImage = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -86,8 +89,6 @@ const DraggableList: FC = () => {
 
     // file selection handler
     const itemClickHandler = (image: IGallery) => {
-        console.log("clicked", image);
-
         setItems((items) => {
             return items.map((item) => {
                 if (item.id === image.id) {
@@ -113,11 +114,11 @@ const DraggableList: FC = () => {
 
     return (
         <div className="card">
-            <h2 className="card-header text-3xl font-bold flex justify-between">
-                <span>{cardTitle}</span>
+            <h2 className="card-header flex justify-between">
+                <span className="text-2xl font-bold ">{cardTitle}</span>
                 {selectedItems > 0 && (
-                    <button className="text-red-500" onClick={deleteSelectedFiles}>
-                        Delete Files
+                    <button className="text-red-500 text-xl" onClick={deleteSelectedFiles}>
+                        Delete File{selectedItems > 1 ? "s" : ""}
                     </button>
                 )}
             </h2>
@@ -129,7 +130,7 @@ const DraggableList: FC = () => {
                     onDragEnd={handleDragEnd}
                     onDragCancel={handleDragCancel}>
                     <SortableContext items={items} strategy={rectSortingStrategy}>
-                        <Grid columns={5}>
+                        <div className="grid gap-3 lg:grid-cols-5 md:grid-cols-3 grid-cols-2">
                             {items.map((image, index) => (
                                 <SortableCard
                                     key={index}
@@ -141,7 +142,7 @@ const DraggableList: FC = () => {
                                     checked={Boolean(image.checked)}
                                 />
                             ))}
-                            <div className="card-item border-2 border-gray-300 border-dashed p-4 bg-gray-50  hover:bg-gray-100 ">
+                            <div className="card-item border-2 border-gray-300 border-dashed p-4 bg-gray-50 hover:bg-gray-100 lg:col-span-1 md:col-span-1 col-span-2">
                                 <div className="flex items-center justify-center w-full">
                                     <label
                                         htmlFor="dropzone-file"
@@ -179,7 +180,7 @@ const DraggableList: FC = () => {
                                     </label>
                                 </div>
                             </div>
-                        </Grid>
+                        </div>
                     </SortableContext>
                     <DragOverlay adjustScale style={{ transformOrigin: "0 0 " }}>
                         {activeCard ? (

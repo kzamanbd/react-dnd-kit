@@ -30,15 +30,22 @@ const Card = forwardRef<HTMLDivElement, CardProps>(({ withOpacity, isDragging, s
 
     return (
         <div className="card-item group" ref={ref} style={inlineStyles} {...props}>
-            <div className="overlay group-hover:scale-100 scale-0 duration-300 transition-transform"></div>
-            <input
-                type="checkbox"
-                checked={props.checked}
-                onChange={() => null}
-                className={`g-checkbox ${
-                    !props.checked && "group-hover:scale-100 scale-0 duration-300 transition-transform"
-                }`}
-            />
+            {!isDragging ? (
+                <>
+                    {!props.checked ? (
+                        <div className="overlay group-hover:scale-100 scale-0 duration-300 transition-transform"></div>
+                    ) : null}
+                    <input
+                        type="checkbox"
+                        checked={props.checked}
+                        onChange={() => null}
+                        className={`g-checkbox ${
+                            !props.checked && "group-hover:scale-100 scale-0 duration-300 transition-transform"
+                        }`}
+                    />
+                </>
+            ) : null}
+
             <img className="h-full w-full object-cover max-w-full rounded-xl" src={props.src} alt={props.alt} />
         </div>
     );
