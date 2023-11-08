@@ -33,11 +33,6 @@ const BoxCard = forwardRef<HTMLDivElement, CardProps>(({ withOpacity, isDragging
         ...style
     };
 
-    if (props.index === 0) {
-        inlineStyles.gridRowStart = "span 2";
-        inlineStyles.gridColumnStart = "span 2";
-    }
-
     return (
         <div className={`card-item group ${props.checked && "checked"}`} ref={ref} style={inlineStyles} {...props}>
             {!isDragging ? (
