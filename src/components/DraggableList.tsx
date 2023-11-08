@@ -111,7 +111,7 @@ const DraggableList: FC = () => {
     const itemIds = useMemo(() => items.map((item) => item.id), [items]);
 
     return (
-        <div className="card">
+        <div className="card border">
             <h2 className="card-header flex justify-between">
                 <span className="text-2xl font-bold ">{cardTitle}</span>
                 {selectedItems > 0 && (
