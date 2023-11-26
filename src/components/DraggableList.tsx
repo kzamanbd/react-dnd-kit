@@ -8,14 +8,14 @@ import {
     closestCenter,
     useSensor,
     useSensors
-} from "@dnd-kit/core";
+} from '@dnd-kit/core';
 
-import { SortableContext, arrayMove, rectSortingStrategy } from "@dnd-kit/sortable";
-import { FC, useCallback, useMemo, useState } from "react";
-import { useGallery } from "../hooks/useGallery";
-import { IGallery } from "../types";
-import Card from "./Card";
-import SortableCard from "./SortableCard";
+import { SortableContext, arrayMove, rectSortingStrategy } from '@dnd-kit/sortable';
+import { FC, useCallback, useMemo, useState } from 'react';
+import { useGallery } from '../hooks/useGallery';
+import { IGallery } from '../types';
+import Card from './Card';
+import SortableCard from './SortableCard';
 
 const DraggableList: FC = () => {
     const { images } = useGallery();
@@ -74,9 +74,9 @@ const DraggableList: FC = () => {
 
             reader.onloadend = () => {
                 const newImage = {
-                    id: Date.now() + "",
+                    id: Date.now() + '',
                     url: reader.result as string,
-                    alt: "New Image"
+                    alt: 'New Image'
                 };
                 setItems((items) => [...items, newImage]);
             };
@@ -106,7 +106,7 @@ const DraggableList: FC = () => {
     const selectedItems = items.filter((item) => item.checked).length;
 
     // title of the card
-    const cardTitle = selectedItems > 0 ? `${selectedItems} File${selectedItems > 1 ? "s" : ""} Selected` : "Gallery";
+    const cardTitle = selectedItems > 0 ? `${selectedItems} File${selectedItems > 1 ? 's' : ''} Selected` : 'Gallery';
 
     const itemIds = useMemo(() => items.map((item) => item.id), [items]);
 
@@ -116,7 +116,7 @@ const DraggableList: FC = () => {
                 <span className="text-2xl font-bold ">{cardTitle}</span>
                 {selectedItems > 0 && (
                     <button className="text-red-500 text-xl" onClick={deleteSelectedFiles}>
-                        Delete File{selectedItems > 1 ? "s" : ""}
+                        Delete File{selectedItems > 1 ? 's' : ''}
                     </button>
                 )}
             </h2>
@@ -180,7 +180,7 @@ const DraggableList: FC = () => {
                             </div>
                         </div>
                     </SortableContext>
-                    <DragOverlay adjustScale style={{ transformOrigin: "0 0 " }}>
+                    <DragOverlay adjustScale style={{ transformOrigin: '0 0 ' }}>
                         {activeCard ? (
                             <Card src={activeCard.url} alt={activeCard.alt} id={activeCard.id} isDragging />
                         ) : null}

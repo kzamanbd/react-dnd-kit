@@ -8,10 +8,10 @@ import {
     closestCenter,
     useSensor,
     useSensors
-} from "@dnd-kit/core";
-import { SortableContext, arrayMove, rectSortingStrategy, useSortable } from "@dnd-kit/sortable";
-import { CSS } from "@dnd-kit/utilities";
-import { CSSProperties, FC, HTMLAttributes, forwardRef, useCallback, useState } from "react";
+} from '@dnd-kit/core';
+import { SortableContext, arrayMove, rectSortingStrategy, useSortable } from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
+import { CSSProperties, FC, HTMLAttributes, forwardRef, useCallback, useState } from 'react';
 
 type CardProps = HTMLAttributes<HTMLDivElement> & {
     id: string;
@@ -21,20 +21,25 @@ type CardProps = HTMLAttributes<HTMLDivElement> & {
     checked?: boolean;
 };
 
-const BoxCard = forwardRef<HTMLDivElement, CardProps>(({ withOpacity, isDragging, style, ...props }, ref) => {
+const BoxCard = forwardRef<HTMLDivElement, CardProps>(({ index, withOpacity, isDragging, style, ...props }, ref) => {
     const inlineStyles: CSSProperties = {
-        opacity: withOpacity ? "0.5" : "1",
-        cursor: isDragging ? "grabbing" : "grab",
-        transformOrigin: "50% 50%",
+        opacity: withOpacity ? '0.5' : '1',
+        cursor: isDragging ? 'grabbing' : 'grab',
+        transformOrigin: '50% 50%',
         boxShadow: isDragging
-            ? "rgb(63 63 68 / 5%) 0px 2px 0px 2px, rgb(34 33 81 / 15%) 0px 2px 3px 2px"
-            : "rgb(63 63 68 / 5%) 0px 0px 0px 1px, rgb(34 33 81 / 15%) 0px 1px 3px 0px",
-        transform: isDragging ? "scale(1.05)" : "scale(1)",
+            ? 'rgb(63 63 68 / 5%) 0px 2px 0px 2px, rgb(34 33 81 / 15%) 0px 2px 3px 2px'
+            : 'rgb(63 63 68 / 5%) 0px 0px 0px 1px, rgb(34 33 81 / 15%) 0px 1px 3px 0px',
+        transform: isDragging ? 'scale(1.05)' : 'scale(1)',
         ...style
     };
 
+    if (index == 0) {
+        inlineStyles.gridColumn = 'span 2';
+        inlineStyles.gridRow = 'span 2';
+    }
+
     return (
-        <div className={`card-item group ${props.checked && "checked"}`} ref={ref} style={inlineStyles} {...props}>
+        <div className={`card-item group ${props.checked && 'checked'}`} ref={ref} style={inlineStyles} {...props}>
             {!isDragging ? (
                 <>
                     {!props.checked ? (
@@ -45,7 +50,7 @@ const BoxCard = forwardRef<HTMLDivElement, CardProps>(({ withOpacity, isDragging
                         checked={props.checked}
                         onChange={() => null}
                         className={`g-checkbox ${
-                            !props.checked && "group-hover:scale-100 scale-0 duration-300 transition-transform"
+                            !props.checked && 'group-hover:scale-100 scale-0 duration-300 transition-transform'
                         }`}
                     />
                 </>
@@ -75,7 +80,7 @@ const BoxSortable: FC<CardProps> = (props) => {
 };
 
 const GridSortable = () => {
-    const [items, setItems] = useState(Array.from(Array(20).keys(), (i) => i + 1).map((id) => id + ""));
+    const [items, setItems] = useState(Array.from(Array(20).keys(), (i) => i + 1).map((id) => id + ''));
     const [activeId, setActiveId] = useState<string | null>();
     const sensors = useSensors(
         useSensor(MouseSensor, {
@@ -133,7 +138,7 @@ const GridSortable = () => {
                             ))}
                         </div>
                     </SortableContext>
-                    <DragOverlay adjustScale style={{ transformOrigin: "0 0 " }}>
+                    <DragOverlay adjustScale style={{ transformOrigin: '0 0 ' }}>
                         {activeId ? <BoxCard id={activeId} isDragging /> : null}
                     </DragOverlay>
                 </DndContext>
