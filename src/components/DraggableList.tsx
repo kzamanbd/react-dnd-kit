@@ -30,7 +30,11 @@ const DraggableList: FC = () => {
                 distance: 10
             }
         }),
-        useSensor(TouchSensor)
+        useSensor(TouchSensor, {
+            activationConstraint: {
+                distance: 10
+            }
+        })
     );
 
     // drag start handler when user starts dragging

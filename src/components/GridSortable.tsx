@@ -80,7 +80,7 @@ const BoxSortable: FC<CardProps> = (props) => {
 };
 
 const GridSortable = () => {
-    const [items, setItems] = useState(Array.from(Array(20).keys(), (i) => i + 1).map((id) => id + ''));
+    const [items, setItems] = useState(Array.from(Array(22).keys(), (i) => i + 1).map((id) => id + ''));
     const [activeId, setActiveId] = useState<string | null>();
     const sensors = useSensors(
         useSensor(MouseSensor, {
