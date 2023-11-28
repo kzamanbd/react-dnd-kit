@@ -1,5 +1,5 @@
-import DraggableList from "./components/DraggableList";
-import GridSortable from "./components/GridSortable";
+import DraggableList from './components/DraggableList';
+import GridSortable from './components/GridSortable';
 
 function App() {
     return (

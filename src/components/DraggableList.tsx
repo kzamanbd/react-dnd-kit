@@ -180,7 +180,7 @@ const DraggableList: FC = () => {
                             </div>
                         </div>
                     </SortableContext>
-                    <DragOverlay adjustScale style={{ transformOrigin: '0 0 ' }}>
+                    <DragOverlay adjustScale>
                         {activeCard ? (
                             <Card src={activeCard.url} alt={activeCard.alt} id={activeCard.id} isDragging />
                         ) : null}

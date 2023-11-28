@@ -25,11 +25,11 @@ const BoxCard = forwardRef<HTMLDivElement, CardProps>(({ index, withOpacity, isD
     const inlineStyles: CSSProperties = {
         opacity: withOpacity ? '0.5' : '1',
         cursor: isDragging ? 'grabbing' : 'grab',
-        transformOrigin: '50% 50%',
         boxShadow: isDragging
             ? 'rgb(63 63 68 / 5%) 0px 2px 0px 2px, rgb(34 33 81 / 15%) 0px 2px 3px 2px'
             : 'rgb(63 63 68 / 5%) 0px 0px 0px 1px, rgb(34 33 81 / 15%) 0px 1px 3px 0px',
         transform: isDragging ? 'scale(1.05)' : 'scale(1)',
+        transformOrigin: '0 0',
         ...style
     };
 
@@ -138,9 +138,7 @@ const GridSortable = () => {
                             ))}
                         </div>
                     </SortableContext>
-                    <DragOverlay adjustScale style={{ transformOrigin: '0 0 ' }}>
-                        {activeId ? <BoxCard id={activeId} isDragging /> : null}
-                    </DragOverlay>
+                    <DragOverlay adjustScale>{activeId ? <BoxCard id={activeId} isDragging /> : null}</DragOverlay>
                 </DndContext>
             </div>
         </div>
