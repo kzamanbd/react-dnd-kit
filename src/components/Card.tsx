@@ -8,9 +8,12 @@ export type CardProps = HTMLAttributes<HTMLDivElement> & {
     isDragging?: boolean;
     index?: number;
     checked?: boolean;
+    itemClickHandler?: (id: string) => void;
 };
 
-const Card = forwardRef<HTMLDivElement, CardProps>(({ withOpacity, isDragging, style, ...props }, ref) => {
+const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
+    const { withOpacity, isDragging, itemClickHandler, style, ...restProps } = props;
+
     const inlineStyles: CSSProperties = {
         opacity: withOpacity ? '0.5' : '1',
         cursor: isDragging ? 'grabbing' : 'grab',
@@ -28,7 +31,7 @@ const Card = forwardRef<HTMLDivElement, CardProps>(({ withOpacity, isDragging, s
     }
 
     return (
-        <div className={`card-item group ${props.checked && 'checked'}`} ref={ref} style={inlineStyles} {...props}>
+        <div className={`card-item group ${props.checked && 'checked'}`} ref={ref} style={inlineStyles} {...restProps}>
             {!isDragging ? (
                 <>
                     {!props.checked ? (
@@ -37,7 +40,7 @@ const Card = forwardRef<HTMLDivElement, CardProps>(({ withOpacity, isDragging, s
                     <input
                         type="checkbox"
                         checked={props.checked}
-                        onChange={() => null}
+                        onChange={() => itemClickHandler && itemClickHandler(props.id)}
                         className={`g-checkbox ${
                             !props.checked && 'group-hover:scale-100 scale-0 duration-300 transition-transform'
                         }`}
